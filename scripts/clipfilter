@@ -4,7 +4,16 @@ use Clipboard;
 my %methods = (
     -html => sub { require CGI; CGI::escapeHTML($_[0]) },
     -uri => sub { require URI::Escape; URI::Escape::uri_escape($_[0]) },
+    -filename => sub { clean_filename($_[0]) },
 );
+
+sub clean_filename {
+    my ($name) = @_;
+    my $clean_name = $name;
+    $clean_name =~ s/[^ !#\$&'\(\)+,\-\.,0-9;=\@A-Z\[\]_`a-z\{\}~\x{0080}-\x{FFFF}]//g;
+
+    return $clean_name;
+}
 
 my $result = filter($ARGV[0], Clipboard->paste);
 Clipboard->copy($result);
