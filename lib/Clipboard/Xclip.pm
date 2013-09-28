@@ -31,7 +31,7 @@ sub paste_from_selection {
     return $result;
 }
 # This ordering isn't officially verified, but so far seems to work the best:
-sub all_selections { qw(primary buffer clipboard secondary) }
+sub all_selections { qw(clipboard primary buffer secondary) }
 sub favorite_selection { my $self = shift; ($self->all_selections)[0] }
 {
   open my $just_checking, 'xclip -o|' or warn <<'EPIGRAPH';
